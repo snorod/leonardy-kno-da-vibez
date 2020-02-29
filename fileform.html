@@ -1,11 +1,109 @@
+<!doctype html>
+
 <html>
     <head>
         <title>Leonardy Kno Da Vibez</title>
+        <style media="screen">
+            /* FILE BTN */
+            #fileBtn {
+                padding: 5px;
+                color: white;
+                background-color: #b388ff;
+                border: 1px solid #b388ff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #fileBtn:hover {
+                background-color: #d0b5ff;
+                border: 1px solid #d0b5ff;
+            }
+
+            /* SUBMIT BTN */
+            #submitBtn {
+                padding: 5px;
+                color: white;
+                background-color: #b388ff;
+                border: 1px solid #b388ff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #submitBtn:hover {
+                background-color: #d0b5ff;
+                border: 1px solid #d0b5ff;
+            }
+        </style>
     </head>
+
     <body>
-        <form action="/handleUpload" method="post" enctype="multipart/form-data">
-            Choose the file: <input type="file" name="photo"/><BR>
-                <input type="submit" value="Upload"/>
-        </form>
+        <h1>Leonardy Kno Da Vibez</h1>
+        <p>leonardy kno</p>
+        <hr />
+
+        <div id="button shit">
+            <form id="post" action="/handleUpload" method="post" enctype="multipart/form-data">
+                Choose the file:
+                <input type="file" id="file"/><br>
+                <button type="button" id="fileBtn">Browse</button>
+                <span id="fileTxt">No file chosen, yet</span>
+
+                <input type="submit" id ="submit" value="Upload"/>
+                <button type="button" id="submitBtn">Upload</button>
+            </form>
+        </div>
+        <script type="text/javascript">
+            //FILE BTN
+            const file = document.getElementById("file");
+            const fileBtn = document.getElementById("fileBtn");
+
+            fileBtn.addEventListener("click", function() {
+                file.click();
+            });
+
+            //SUBMIT BTN
+            const submit = document.getElementById("submit");
+            const fileBtn = document.getElementById("submitBtn");
+
+            submitBtn.addEventListener("click", function() {
+                submit.click();
+            });
+
+        </script>
+
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script>
+
+          window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = 'BQAVEQNwvn411egtKbd80kuUhlIJlD-qKzguzsFtjf2N7HlbkkbIvPtHnOq76j09pZ8dJM1eOMVyrUdIBBuU24oP0m3HY0UulV6NmKgIUrY1WXmzT1fzTxp5T-ALGkNEjv2A70mC46r0E2sAohL2iKyG_x9JADLM8puWqvQ';
+            const player = new Spotify.Player({
+              name: 'Icy Like 1017',
+              getOAuthToken: cb => { cb(token); }
+            });
+
+            // Error handling
+            player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            player.addListener('account_error', ({ message }) => { console.error(message); });
+            player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+            // Playback status updates
+            player.addListener('player_state_changed', state => { console.log(state); });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+              console.log('Ready with Device ID', device_id);
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+              console.log('Device ID has gone offline', device_id);
+            });
+
+            // Connect to the player!
+            player.connect();
+          };
+
+
+        </script>
     </body>
+
 </html>
