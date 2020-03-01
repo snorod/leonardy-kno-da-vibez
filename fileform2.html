@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>Leonardy Kno Da Vibez</title>
+        <style media="screen">
+
+            /* h1{
+                padding: 70px 0;
+                text-align: center;
+                color: #6436e3;
+                font-family: sans-serif;
+            }
+
+            p {
+                text-align: center;
+                color: #7c4dff;
+                font-family: sans-serif;
+            }
+
+            form {
+                text-align: center;
+            } */
+
+            body {
+                padding: 180px 0;
+                text-align: center;
+                color: #6436e3;
+                font-family: sans-serif;
+            }
+            /* FILE BTN */
+            #fileBtn {
+                padding: 5px;
+                color: white;
+                font-size: 15px;
+                background-color: #7c4dff;
+                border: 1px solid #7c4dff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #fileBtn:hover {
+                background-color: #a98aff;
+                border: 1px solid #a98aff;
+            }
+            #fileTxt {
+                margin-left: 10px;
+                font-family: sans-serif;
+                font-size: 15px;
+                color: #7c4dff;
+            }
+
+            /* SUBMIT BTN */
+            #submitBtn {
+                padding: 10px;
+                color: white;
+                font-size: 20px;
+                background-color: #7c4dff;
+                border: 1px solid #7c4dff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #submitBtn:hover {
+                background-color: #a98aff;
+                border: 1px solid #a98aff;
+            }
+
+            /*imagePreview*/
+
+            .image-preview {
+                width: 300px;
+                min-height: 100px;
+                border: 2px solid #6436e3;
+
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                color: #a98aff;
+            }
+
+            .image-preview__image {
+                margin-left: auto;
+                margin-right: auto;
+                display: none;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body bgcolor="#f7f6e6">
+        <h1>Leonardy Kno Da Vibez</h1>
+        <p>Pairing your photography with contemporary music.</p>
+
+
+        <div id="button shit">
+            <form id="post" action="/handleUpload" method="post" enctype="multipart/form-data">
+                <input type="file" id="file" hidden="hidden"/><br>
+                <button type="button" id="fileBtn">Browse</button>
+                <br><br>
+                <span id="fileTxt">No file chosen, yet</span>
+                <br><br>
+                <input type="submit" id ="submit" value="Upload" hidden="hidden"/>
+                <button type="button" id="submitBtn">Upload</button>
+                <br><br>
+            </form>
+        </div>
+
+        <div class="image-preview" id="imagePreview">
+            <img src="" alt="Image Preview" class="image-preview__image">
+            <span class="image-preview__default-text">Image Preview</span>
+        </div>
+
+        <!-- BUTTON STUFF -->
+        <script type="text/javascript">
+            //FILE BTN
+            const file = document.getElementById("file");
+            const fileBtn = document.getElementById("fileBtn");
+            const fileTxt = document.getElementById("fileTxt");
+
+            fileBtn.addEventListener("click", function() {
+                file.click();
+            });
+
+            file.addEventListener("change", function() {
+                if (file.value) {
+                    fileTxt.innerHTML = file.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+                } else {
+                    fileTxt.innerHTML = "No file chosen, yet."
+                }
+            });
+
+            //SUBMIT BTN
+            const submit = document.getElementById("submit");
+            const submitBtn = document.getElementById("submitBtn");
+
+            submitBtn.addEventListener("click", function() {
+                submit.click();
+            });
+
+
+            //IMG PREVIEW
+                const inpFile = document.getElementById("file");
+                const previewContainer = document.getElementById("imagePreview");
+                const previewImage = previewContainer.querySelector(".image-preview__image");
+                const previewDefaultTxt = previewContainer.querySelector(".image-preview__default-text");
+
+
+                inpFile.addEventListener("change", function() {
+                    const file = this.files[0];
+
+                    if (file) {
+                        const reader = new FileReader();
+
+                        previewDefaultTxt.style.display = "none";
+                        previewImage.style.display = "block";
+
+                        reader.addEventListener("load", function() {
+                            previewImage.setAttribute("src", this.result);
+                        });
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        previewDefaultTxt.style.display = null;
+                        previewImage.style.display = null;
+                        previewImage.setAttribute("src", "");
+                    }
+                });
+        </script>
+
+
+        <!-- SPOTIFY API -->
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script>
+
+          window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = 'BQAVEQNwvn411egtKbd80kuUhlIJlD-qKzguzsFtjf2N7HlbkkbIvPtHnOq76j09pZ8dJM1eOMVyrUdIBBuU24oP0m3HY0UulV6NmKgIUrY1WXmzT1fzTxp5T-ALGkNEjv2A70mC46r0E2sAohL2iKyG_x9JADLM8puWqvQ';
+            const player = new Spotify.Player({
+              name: 'Icy Like 1017',
+              getOAuthToken: cb => { cb(token); }
+            });
+
+            // Error handling
+            player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            player.addListener('account_error', ({ message }) => { console.error(message); });
+            player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+            // Playback status updates
+            player.addListener('player_state_changed', state => { console.log(state); });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+              console.log('Ready with Device ID', device_id);
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+              console.log('Device ID has gone offline', device_id);
+            });
+
+            // Connect to the player!
+            player.connect();
+          };
+
+
+        </script>
+    </body>
+
+</html>
