@@ -13,7 +13,7 @@ def spotify_search(keyword, auth_token):
 def spotify_play(uri, auth_token):
     play_url = 'https://api.spotify.com/v1/me/player/play'
     play_headers = {'Authorization': 'Bearer ' + auth_token, 'Accept': 'application/json', 'Content-Type': 'application/json'}
-    play_params = {'device_id': '12dbaf0b832b408c8a44a8377217075ba5d05a91'}
+    play_params = {}
     play_payload = {'uris': [uri]}
     r = requests.put(headers = play_headers, url = play_url, params = play_params, data = json.dumps(play_payload))
 

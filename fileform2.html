@@ -170,12 +170,13 @@
         </script>
 
 
+
         <!-- SPOTIFY API -->
         <script src="https://sdk.scdn.co/spotify-player.js"></script>
         <script>
 
           window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQAVEQNwvn411egtKbd80kuUhlIJlD-qKzguzsFtjf2N7HlbkkbIvPtHnOq76j09pZ8dJM1eOMVyrUdIBBuU24oP0m3HY0UulV6NmKgIUrY1WXmzT1fzTxp5T-ALGkNEjv2A70mC46r0E2sAohL2iKyG_x9JADLM8puWqvQ';
+            const token = 'BQC-vsg880t2sJsW3B6dkLtTtLxzrsW-Mgd-VYINKx2YR84LS8OpGfy8WduOlGTbHV0h-BZ9ZTZdgF2VdOdPM-csTwdXje6vZkPNkP5He40ABxAAc_WPW_Wlya22TSBqSVWUmMJz3rw4vd_w19ILa05RtlvU9jeKItBJt6c';
             const player = new Spotify.Player({
               name: 'Icy Like 1017',
               getOAuthToken: cb => { cb(token); }
